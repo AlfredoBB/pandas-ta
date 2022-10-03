@@ -411,19 +411,19 @@ class AnalysisIndicators(BasePandasObject):
                     if "col_names" in kwargs and isinstance(kwargs["col_names"], tuple):
                         if len(kwargs["col_names"]) >= len(result.columns):
                             for col, ind_name in zip(result.columns, kwargs["col_names"]):
-                                df[ind_name] = result.loc[:, col]
+                                df.loc[:,ind_name] = result.loc[:, col]
                         else:
                             print(f"Not enough col_names were specified : got {len(kwargs['col_names'])}, expected {len(result.columns)}.")
                             return
                     else:
                         for i, column in enumerate(result.columns):
-                            df[column] = result.iloc[:, i]
+                            df.loc[:,column] = result.iloc[:, i]
                 else:
                     ind_name = (
                         kwargs["col_names"][0] if "col_names" in kwargs and
                         isinstance(kwargs["col_names"], tuple) else result.name
                     )
-                    df[ind_name] = result
+                    df.loc[:,ind_name] = result
 
     def _check_na_columns(self, stdout: bool = True):
         """Returns the columns in which all it's values are na."""
